@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
         movementVector.z = Input.GetAxis("Vertical");
     }
 
-    Vector3 CalculateMovementVector(float _horizontal, float _vertical, float _moveSpeed, float deltaTime)
+    public Vector3 CalculateMovementVector(float _horizontal, float _vertical, float _moveSpeed, float deltaTime)
     {
         float x = _horizontal * _moveSpeed * deltaTime;
         float y = _vertical * _moveSpeed * deltaTime;
