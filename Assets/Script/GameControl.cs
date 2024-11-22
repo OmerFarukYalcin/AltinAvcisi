@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameControl : MonoBehaviour
 {
-    //bool
-    public bool gameRunning = false;
-    public bool gameFin = false;
-    //numeric
+    public static GameControl instance;
+    private GameState gameState;
     public int countGold = 0;
-    //UI
     [SerializeField] Text countGoldText;
     public Text finalText;
-    [SerializeField] Button startButton;
+    [SerializeField] GameObject finalPanel;
+
+    private void Awake()
+    {
+        gameState = new(State.Pause);
+    }
 
     void Start()
     {
@@ -35,19 +35,44 @@ public class GameControl : MonoBehaviour
 
     public void startGame()
     {
-        gameRunning = true;
-        startButton.gameObject.SetActive(false);
+        gameState.ChangeState(State.Running);
+    }
+
+    public void ChangeGameState(State state)
+    {
+        gameState.ChangeState(state);
+
+        switch (gameState.state)
+        {
+            case State.Running:
+                break;
+            case State.Pause:
+                break;
+            case State.Finish:
+                break;
+            case State.Victory:
+                break;
+        }
     }
 
     public void Eliminated()
     {
+        gameState.ChangeState(State.Finish);
         finalText.text = "Maalesef engeli a�amad�n kaybettin!Tekrar ba�lamak istiyorsan Space tu�una bas";
-        gameFin = true;
     }
-    public void Victory()
+    private void Victory()
     {
         finalText.text = "Oyunu kazand�n�z.Tebrikler!Tekrar ba�lamak istiyorsan Space tu�una bas";
         if (Input.GetKeyDown(KeyCode.Space)) SceneManager.LoadScene("Bolum1");
+    }
+
+    public bool GameIsRunning()
+    {
+        return gameState.state == State.Running;
+    }
+    public bool IsGamePlayable()
+    {
+        return gameState.state == State.Running && countGold < 4;
     }
 
 }

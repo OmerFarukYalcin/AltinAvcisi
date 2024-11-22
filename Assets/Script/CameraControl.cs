@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
-    //Script
-    [SerializeField] GameControl gControl;
     //numeric
     float sensibility = 5f;
     float softness = 2f;
@@ -23,7 +21,7 @@ public class CameraControl : MonoBehaviour
 
     void Update()
     {
-        if (gControl.gameRunning && gControl.countGold < 4)
+        if (GameControl.instance.IsGamePlayable())
         {
             Vector2 mousePos = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
             mousePos = Vector2.Scale(mousePos, new Vector2(sensibility * softness, sensibility * softness));

@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class SpearAnimation : MonoBehaviour
 {
-    //Script
-    [SerializeField] GameControl gControl;
-    //numeric
+
     float timer;
 
     private void Awake()
@@ -16,7 +14,7 @@ public class SpearAnimation : MonoBehaviour
 
     void Update()
     {
-        if (gControl.gameRunning == true)
+        if (GameControl.instance.GameIsRunning())
         {
             timer -= Time.deltaTime;
             if (timer < 0 && this.gameObject.GetComponent<Animation>().enabled)

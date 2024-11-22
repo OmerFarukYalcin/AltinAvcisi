@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class BladeAnimation : MonoBehaviour
 {
-    //Script
-    [SerializeField] GameControl gControl;
-    //numeric
     float timer = 2f;
 
     void Update()
     {
-        if (gControl.gameRunning == true)
+        if (GameControl.instance.GameIsRunning())
         {
             timer -= Time.deltaTime;
             if (timer < 0 && this.gameObject.GetComponent<Animation>().enabled)
